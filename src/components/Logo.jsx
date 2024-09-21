@@ -1,3 +1,3 @@
 export default function Logo() {
-  return <div>🌴Travel List Essentials🛄</div>;
+  return <h1>🌴Travel List Essentials🛄</h1>;
 }
