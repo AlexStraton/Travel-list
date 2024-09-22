@@ -1,23 +1,35 @@
+import { useState } from "react";
+
 export default function Form() {
+  const [dropdown, setDropdown] = useState(null);
+  const [input, setInput] = useState("");
+
+  const nums = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ];
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
     <>
-      <form className='add-form'>
+      <form onSubmit={handleSubmit} className='add-form'>
         <h3>What do you need for your trip?</h3>
-        <select>
-          <option value='1'>1</option>
-          <option value='2'>2</option>
-          <option value='3'>3</option>
-          <option value='4'>4</option>
-          <option value='5'>5</option>
-          <option value='6'>6</option>
-          <option value='7'>7</option>
-          <option value='8'>8</option>
-          <option value='9'>9</option>
-          <option value='10'>10</option>
+        <select onChange={(event) => setDropdown(event.target.value)}>
+          {nums.map((currentNum) => (
+            <option value={currentNum} key={currentNum}>
+              {currentNum}
+            </option>
+          ))}
         </select>
 
         <label>
-          <input placeholder='Item...' />
+          <input
+            onChange={(event) => setInput(event.target.value)}
+            type='text'
+            placeholder='Item...'
+          />
         </label>
         <button>Add</button>
       </form>
