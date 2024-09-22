@@ -99,6 +99,22 @@ input {
   margin: 0 0.8rem;
 }
 
+.error {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.error p {
+  position: absolute;
+  top: 100%;
+
+  left: 20px;
+  margin: 0;
+  color: black;
+  height: 70px;
+}
+
 .list ul {
   list-style: none;
   width: 80%;
