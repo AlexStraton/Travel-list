@@ -1,6 +1,22 @@
 import { useState } from "react";
 
 export default function PackingList({ items, deleteItem, handleToggle }) {
+  const [sortBy, setSortBy] = useState("input");
+
+  let sortedItems;
+
+  if (sortBy === "input") {
+    sortedItems = items;
+  } else if (sortBy === "description") {
+    sortedItems = items
+      .slice()
+      .sort((a, b) => a.description.localeCompare(b.description));
+  } else {
+    sortedItems = items
+      .slice()
+      .sort((a, b) => Number(a.packed) - Number(b.packed));
+  }
+
   function handleDelete(id) {
     deleteItem(id);
   }
@@ -9,11 +25,14 @@ export default function PackingList({ items, deleteItem, handleToggle }) {
     handleToggle(id);
   }
 
+  function handleSort(event) {
+    setSortBy(event.target.value);
+  }
   return (
     <div className='list'>
-      {items.map((item) => {
-        return (
-          <ul>
+      <ul>
+        {sortedItems.map((item) => {
+          return (
             <li key={item.id}>
               <input
                 type='checkbox'
@@ -26,16 +45,18 @@ export default function PackingList({ items, deleteItem, handleToggle }) {
               </span>
               <button onClick={() => handleDelete(item.id)}>❌</button>
             </li>
-          </ul>
-        );
-      })}
+          );
+        })}
+      </ul>
 
-      <select>
-        <option value='1'>Sort by</option>
-        <option value='2'>Sort by</option>
-        <option value='3'>Sort by</option>
-      </select>
-      <button>Clear List</button>
+      <div className='actions'>
+        <select value={sortBy} onChange={handleSort}>
+          <option value='input '>Sort by Input order</option>
+          <option value='description'>Sort by Description</option>
+          <option value='packed'>Sort by Packed Status</option>
+        </select>
+        <button>Clear List</button>
+      </div>
     </div>
   );
 }

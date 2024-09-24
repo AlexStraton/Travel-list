@@ -1,4 +1,11 @@
 export default function Stats({ items }) {
+  if (items.length === 0) {
+    return (
+      <p className='stats'>
+        <em>Start adding some items to your list!</em>
+      </p>
+    );
+  }
   const itemsArray = items.length;
   const packed = items.filter((item) => item.packed).length;
   const percent = (packed / itemsArray) * 100;
