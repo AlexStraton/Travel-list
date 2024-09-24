@@ -16,12 +16,23 @@ export default function App() {
       previousItems.filter((items) => items.id !== id)
     );
   }
+  function handleToggle(id) {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        id === item.id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
 
   return (
     <>
       <Logo />
       <Form addedItem={addedItem} />
-      <PackingList deleteItem={deleteItem} items={items} />
+      <PackingList
+        deleteItem={deleteItem}
+        handleToggle={handleToggle}
+        items={items}
+      />
       <Stats />
     </>
   );

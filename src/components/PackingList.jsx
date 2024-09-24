@@ -1,14 +1,12 @@
 import { useState } from "react";
 
-export default function PackingList({ items, deleteItem }) {
-  const [isChecked, setIsChecked] = useState(false);
-
+export default function PackingList({ items, deleteItem, handleToggle }) {
   function handleDelete(id) {
     deleteItem(id);
   }
 
   function checkHandler(id) {
-    setIsChecked(!isChecked);
+    handleToggle(id);
   }
 
   return (
@@ -19,7 +17,7 @@ export default function PackingList({ items, deleteItem }) {
             <li key={item.id}>
               <input
                 type='checkbox'
-                checked={isChecked}
+                value={item.packed}
                 onChange={() => checkHandler(item.id)}
               />
               <span
