@@ -1,4 +1,10 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function PackingList({
   items,
@@ -7,7 +13,7 @@ export default function PackingList({
   handleClear,
 }) {
   const [sortBy, setSortBy] = useState("input");
-
+  const [open, setOpen] = useState(false);
   let sortedItems;
 
   if (sortBy === "input") {
@@ -33,6 +39,15 @@ export default function PackingList({
   function handleSort(event) {
     setSortBy(event.target.value);
   }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className='list'>
       <ul>
@@ -60,7 +75,33 @@ export default function PackingList({
           <option value='description'>Sort by Description</option>
           <option value='packed'>Sort by Packed Status</option>
         </select>
-        <button onClick={handleClear}>Clear List</button>
+
+        <React.Fragment>
+          <button onClick={handleClickOpen}>Clear List</button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'>
+            <DialogTitle id='alert-dialog-title'>Are you sure?</DialogTitle>
+            <DialogContent>
+              <DialogContentText id='alert-dialog-description'>
+                Please confirm you want to delete all items
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>No</Button>
+              <Button
+                onClick={() => {
+                  handleClear();
+                  handleClose();
+                }}
+                autoFocus>
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </React.Fragment>
       </div>
     </div>
   );
