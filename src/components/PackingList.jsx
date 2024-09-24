@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function PackingList({ items, deleteItem, handleToggle }) {
+export default function PackingList({
+  items,
+  deleteItem,
+  handleToggle,
+  handleClear,
+}) {
   const [sortBy, setSortBy] = useState("input");
 
   let sortedItems;
@@ -55,7 +60,7 @@ export default function PackingList({ items, deleteItem, handleToggle }) {
           <option value='description'>Sort by Description</option>
           <option value='packed'>Sort by Packed Status</option>
         </select>
-        <button>Clear List</button>
+        <button onClick={handleClear}>Clear List</button>
       </div>
     </div>
   );

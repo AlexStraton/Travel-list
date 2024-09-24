@@ -10,6 +10,9 @@ export default function App() {
   function addedItem(item) {
     setItems((previousItems) => [...previousItems, item]);
   }
+  function handleClear() {
+    setItems([]);
+  }
 
   function deleteItem(id) {
     setItems((previousItems) =>
@@ -29,6 +32,7 @@ export default function App() {
       <Logo />
       <Form addedItem={addedItem} />
       <PackingList
+        handleClear={handleClear}
         deleteItem={deleteItem}
         handleToggle={handleToggle}
         items={items}
