@@ -1,21 +1,32 @@
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: true },
-];
+import { useState } from "react";
 
-export default function PackingList({ items }) {
+export default function PackingList({ items, deleteItem }) {
+  const [isChecked, setIsChecked] = useState(false);
+
+  function handleDelete(id) {
+    deleteItem(id);
+  }
+
+  function checkHandler(id) {
+    setIsChecked(!isChecked);
+  }
+
   return (
     <div className='list'>
       {items.map((item) => {
         return (
           <ul>
             <li key={item.id}>
-              <input type='checkbox' />
+              <input
+                type='checkbox'
+                checked={isChecked}
+                onChange={() => checkHandler(item.id)}
+              />
               <span
                 style={item.packed ? { textDecoration: "line-through" } : {}}>
                 {item.quantity} {item.description}
               </span>
-              <button>❌</button>
+              <button onClick={() => handleDelete(item.id)}>❌</button>
             </li>
           </ul>
         );

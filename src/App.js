@@ -11,11 +11,17 @@ export default function App() {
     setItems((previousItems) => [...previousItems, item]);
   }
 
+  function deleteItem(id) {
+    setItems((previousItems) =>
+      previousItems.filter((items) => items.id !== id)
+    );
+  }
+
   return (
     <>
       <Logo />
       <Form addedItem={addedItem} />
-      <PackingList items={items} />
+      <PackingList deleteItem={deleteItem} items={items} />
       <Stats />
     </>
   );
