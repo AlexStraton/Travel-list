@@ -33,7 +33,7 @@ export default function App() {
         handleToggle={handleToggle}
         items={items}
       />
-      <Stats />
+      <Stats items={items} />
     </>
   );
 }
